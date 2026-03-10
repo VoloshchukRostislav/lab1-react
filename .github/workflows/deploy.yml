@@ -16,20 +16,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: './lab1-react/package-lock.json'
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./lab1-react
-      - name: Build
-        run: npm run build
-        working-directory: ./lab1-react
+      - name: Install and Build
+        run: |
+          cd lab1-react
+          npm install
+          npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './lab1-react/dist' # Вказуємо на папку всередині підпапки
+          path: './lab1-react/dist' # Вказуємо саме на папку dist всередині проєкту
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
