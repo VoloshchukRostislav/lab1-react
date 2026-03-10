@@ -1,66 +1,60 @@
-import { students } from "./data";
+import { useState } from "react";
+import { postsData } from "./data";
+import Post from "./components/molecules/Post/Post";
+import SearchBar from "./components/molecules/SearchBar/SearchBar";
+import styles from "./App.module.css";
 
 function App() {
 
-  // Фільтрація активних студентів з балом > 60
-  const activeStudents = students.filter(
-    student => student.active && student.score > 60
-  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  // Середній бал активних студентів
-  const averageScore =
-    activeStudents.reduce((sum, student) => sum + student.score, 0) /
-    activeStudents.length;
+  // Логіка фільтрації
+  const filteredPosts = postsData.filter(post => {
 
-  // Сортування студентів
-  const sortedStudents = [...students].sort(
-    (a, b) => b.score - a.score
-  );
+    const matchesSearch =
+      post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      activeCategory === "All" || post.category === activeCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+    <div className={styles.appContainer}>
 
-      <h1>Список студентів</h1>
+      <h1>Стрічка з фільтрацією</h1>
 
-      <ul>
-        {students.map(student => (
-          <li
-            key={student.id}
-            style={{
-              color: student.active ? "black" : "gray",
-              textDecoration: student.active ? "none" : "line-through"
-            }}
+      <SearchBar
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
+
+      <div className={styles.filters}>
+        {["All", "News", "Updates"].map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={activeCategory === cat ? styles.active : ""}
           >
-            {student.name} — {student.score}
-          </li>
+            {cat}
+          </button>
         ))}
-      </ul>
+      </div>
 
-      <h2>Активні студенти (бал більше 60)</h2>
-
-      <ul>
-        {activeStudents.map(student => (
-          <li key={student.id}>
-            {student.name} — {student.score}
-          </li>
-        ))}
-      </ul>
-
-      <h2>Статистика</h2>
-
-      <p>
-        Середній бал активних студентів: {averageScore.toFixed(2)}
-      </p>
-
-      <h2>Студенти за рейтингом</h2>
-
-      <ul>
-        {sortedStudents.map(student => (
-          <li key={student.id}>
-            {student.name} — {student.score}
-          </li>
-        ))}
-      </ul>
+      <div className={styles.feed}>
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map(post => (
+            <Post key={post.id} {...post} />
+          ))
+        ) : (
+          <p className={styles.empty}>
+            Нічого не знайдено за вашим запитом.
+          </p>
+        )}
+      </div>
 
     </div>
   );

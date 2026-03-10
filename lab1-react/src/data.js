@@ -1,8 +1,20 @@
-export const students = [
-  { id: 1, name: "Іван", score: 85, active: true },
-  { id: 2, name: "Марія", score: 72, active: true },
-  { id: 3, name: "Петро", score: 55, active: false },
-  { id: 4, name: "Олена", score: 91, active: true },
-  { id: 5, name: "Андрій", score: 60, active: false },
-  { id: 6, name: "Наталія", score: 77, active: true }
+export const postsData = [
+  {
+    id: 1,
+    author: "Іван",
+    content: "Сьогодні гарна погода!",
+    category: "News"
+  },
+  {
+    id: 2,
+    author: "Олена",
+    content: "Ми запустили новий сайт",
+    category: "Updates"
+  },
+  {
+    id: 3,
+    author: "Максим",
+    content: "Вакансія React розробника",
+    category: "News"
+  }
 ];
