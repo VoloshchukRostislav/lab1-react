@@ -1,14 +1,11 @@
 name: Deploy static content to Pages
-
 on:
   push:
-    branches: ['master'] # Або 'main', якщо ваша гілка так називається
-
+    branches: ['master']
 permissions:
   contents: read
   pages: write
   id-token: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -20,6 +17,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: './lab1-react/package-lock.json'
       - name: Install dependencies
         run: npm install
         working-directory: ./lab1-react
@@ -31,7 +29,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './lab1-react/dist'
+          path: './lab1-react/dist' # Вказуємо на папку всередині підпапки
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
