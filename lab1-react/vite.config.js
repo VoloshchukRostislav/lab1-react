@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/lab1-react.git/', // ЗАМІНІТЬ НА СВОЮ НАЗВУ!
+  base: '/lab1-react/', // ЦЕЙ РЯДОК МАЄ БУТИ ТУТ
 })
