@@ -1,23 +1,13 @@
 name: Deploy static content to Pages
-
 on:
   push:
-    branches: ['main', 'master']
-
+    branches: ['master']
 permissions:
   contents: read
   pages: write
   id-token: write
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,19 +16,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./lab1-react
-      - name: Build
-        run: npm run build
-        working-directory: ./lab1-react
+      - name: Install and Build
+        run: |
+          cd lab1-react
+          npm install
+          npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './lab1-react/dist'
+          path: './lab1-react/dist' # Вказуємо саме на папку dist всередині проєкту
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
