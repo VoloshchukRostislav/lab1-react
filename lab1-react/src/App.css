@@ -1,0 +1,17 @@
+.app {
+  padding: 20px;
+  font-family: Arial;
+}
+
+.tabs button {
+  margin-right: 10px;
+}
+
+.active-tab {
+  background-color: black;
+  color: white;
+}
+
+.content {
+  margin-top: 20px;
+}
