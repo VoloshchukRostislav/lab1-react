@@ -1,0 +1,50 @@
+import React, { useState, useEffect } from "react";
+
+import UserInfo from "../components/UserInfo";
+import ActivityList from "../components/ActivityList";
+
+const ProfilePage = () => {
+
+  const [userData, setUserData] = useState(null);
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+
+    setUserData({
+      name: "Іван Бойко",
+      email: "ivan.boyko@example.com",
+      role: "Frontend Розробник",
+    });
+
+    setActivities([
+      { id: 1, action: "Увійшов у систему", date: "Сьогодні, 10:00" },
+      { id: 2, action: "Оновив профіль", date: "Вчора, 14:30" },
+      { id: 3, action: "Завантажив звіт", date: "12 Вересня" },
+    ]);
+
+  }, []);
+
+  if (!userData) {
+    return <div>Завантаження профілю...</div>;
+  }
+
+  return (
+    <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
+
+      <aside style={{ flex: 1 }}>
+        <UserInfo
+          name={userData.name}
+          email={userData.email}
+          role={userData.role}
+        />
+      </aside>
+
+      <main style={{ flex: 2 }}>
+        <ActivityList activities={activities} />
+      </main>
+
+    </div>
+  );
+};
+
+export default ProfilePage;

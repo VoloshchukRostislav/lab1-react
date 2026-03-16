@@ -1,36 +1,22 @@
-import { Routes, Route } from "react-router-dom";
-
-import MainLayout from "./components/templates/MainLayout/MainLayout";
-
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import Profile from "./pages/Profile/Profile";
-
-import ProtectedRoute from "./components/hoc/ProtectedRoute";
+import ProfilePage from "./pages/ProfilePage";
+import ProductCard from "./components/ProductCard/ProductCard";
 
 function App() {
-  return(
-    <Routes>
+  return (
+    <div>
 
-      <Route path="/" element={<MainLayout />}>
+      <h1>User Dashboard</h1>
 
-        <Route index element={<Home />} />
+      <ProfilePage />
 
-        <Route path="login" element={<Login />} />
+      <hr />
 
-        {/* protected route */}
+      <h1>Product</h1>
 
-        <Route element={<ProtectedRoute />}>
+      <ProductCard />
 
-          <Route path="profile" element={<Profile />} />
-
-        </Route>
-
-      </Route>
-
-    </Routes>
+    </div>
   );
-
-};
+}
 
 export default App;
