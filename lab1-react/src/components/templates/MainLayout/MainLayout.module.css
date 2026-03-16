@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  background: #f0f0f0;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.active {
+  color: blue;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer {
+  padding: 15px;
+  background: #f0f0f0;
+  text-align: center;
+}

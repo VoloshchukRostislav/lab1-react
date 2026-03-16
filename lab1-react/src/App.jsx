@@ -1,73 +1,35 @@
-import { useState } from "react";
-import AddStudentForm from "./AddStudentForm";
-import "./App.css";
+import { Routes, Route } from 'react-router-dom'
+
+import MainLayout from './components/templates/MainLayout/MainLayout'
+
+import Home from './pages/Home/Home'
+import Feed from './pages/Feed/Feed'
+import PostPage from './pages/PostPage/PostPage'
+import Profile from './pages/Profile/Profile'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
-
-  const [students, setStudents] = useState([
-    { id: 1, name: "Іван", score: 80 },
-    { id: 2, name: "Марія", score: 55 },
-    { id: 3, name: "Олег", score: 70 }
-  ]);
-
-  const addStudent = (student) => {
-
-    setStudents([
-      ...students,
-      student
-    ]);
-
-  };
-
   return (
 
-    <div className="app">
+    <Routes>
 
-      <h1>Список студентів</h1>
+      <Route path="/" element={<MainLayout />}>
 
-      <AddStudentForm onAddStudent={addStudent} />
+        <Route index element={<Home />} />
 
-      <h2>Студенти</h2>
+        <Route path="feed" element={<Feed />} />
 
-      <ul>
+        <Route path="feed/:postId" element={<PostPage />} />
 
-        {students.map((student) => (
+        <Route path="profile/*" element={<Profile />} />
 
-          <li key={student.id}>
+        <Route path="*" element={<NotFound />} />
 
-            {student.name}
+      </Route>
 
-            {" - "}
+    </Routes>
 
-            {student.score}
-
-            {" "}
-
-            <span
-              style={{
-                color:
-                  student.score >= 60
-                    ? "green"
-                    : "red"
-              }}
-            >
-
-              {student.score >= 60
-                ? "Зараховано"
-                : "Незараховано"}
-
-            </span>
-
-          </li>
-
-        ))}
-
-      </ul>
-
-    </div>
-
-  );
-
+  )
 }
 
-export default App;
+export default App
