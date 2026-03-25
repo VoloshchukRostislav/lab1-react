@@ -1,36 +1,27 @@
-import { createContext, useState } from "react";
+const login = async (email) => {
 
-// створюємо контекст
-export const AuthContext = createContext();
+  try {
 
-// створюємо провайдер
-export const AuthProvider = ({ children }) => {
+    await new Promise((resolve) =>
+      setTimeout(resolve, 1000)
+    );
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/users/1"
+    );
 
-  // функція входу
-  const login = (userData) => {
+    const userData = await response.json();
     setIsAuthenticated(true);
-    setUser(userData);
-  };
 
-  // функція виходу
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
-  };
+    setUser({
+      ...userData,
+      email
+    });
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        user,
-        login,
-        logout
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  } catch (error) {
+
+    console.error("Login error:", error);
+
+  }
+
 };

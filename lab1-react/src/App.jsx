@@ -1,22 +1,8 @@
-import ProfilePage from "./pages/ProfilePage";
-import ProductCard from "./components/ProductCard/ProductCard";
+import NewsFeed from "./pages/NewsFeed";
+
 
 function App() {
-  return (
-    <div>
-
-      <h1>User Dashboard</h1>
-
-      <ProfilePage />
-
-      <hr />
-
-      <h1>Product</h1>
-
-      <ProductCard />
-
-    </div>
-  );
+  return <NewsFeed />;
 }
 
 export default App;
